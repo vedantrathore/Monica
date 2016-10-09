@@ -82,6 +82,7 @@ def get_reviews(id):
     else:
         return TextTemplate('I\'m facing some issues, try again later').get_message()
 
+
 def get_directions(id):
     url='https://developers.zomato.com/api/v2.1/restaurant?res_id='+id
     try:

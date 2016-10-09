@@ -48,23 +48,19 @@ def webhook():
                                   json=payload)
             elif 'postback' in event:
                 postback = event['postback']['payload'].split('!')[0]
-                print "-----------------------"
-                print postback
                 id = event['postback']['payload'].split('!')[1]
-                print "-----------------------"
-                print id
-                if postback is "get_reviews":
+                if postback == "get_reviews":
                     payload = {
                         'recipient': {
                             'id': sender
                         },
                         'message': modules.get_reviews(id)
                     }
-                    pprint(payload)
+                    pprint(payload['message'])
                     r = requests.post('https://graph.facebook.com/v2.8/me/messages',
                                       params={'access_token': ACCESS_TOKEN},
                                       json=payload)
-                elif postback is "get_directions":
+                elif postback == "get_directions":
                     payload = {
                         'recipient': {
                             'id': sender

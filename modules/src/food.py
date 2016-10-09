@@ -1,5 +1,6 @@
 import requests, json
 from templates.button import *
+from templates.generic import *
 from pprint import pprint
 from geopy.geocoders import Nominatim
 
@@ -17,26 +18,11 @@ def get_location(location):
 
 
 def get_template(restaurants):
-    generic_template = {
-        "attachment": {
-        "type": "template",
-        "payload": {
-            'template_type': 'generic',
-            'value': {
-                'attachment': {
-                    'type': 'template',
-                    'payload': {
-                        'template_type': 'generic',
-                        'elements': []
-                    }
-                }
-            }
-        }
-    }}
+    template = GenericTemplate()
     for restaurant in restaurants:
-        element = {'title': restaurant['name'], 'item_url': restaurant['url'], 'image_url': restaurant['image_url'],
-                   'buttons': [
-                       {
+        template.add_element(title=restaurant['name'],item_url=restaurant['url'],
+                             image_url=restaurant['image_url'],buttons=[
+                        {
                            "type": "web_url",
                            "url": restaurant['url'],
                            "title": "Visit Website"
@@ -50,10 +36,8 @@ def get_template(restaurants):
                            "type": "postback",
                            "title": "Get Directions",
                            "payload": "get_directions"
-                       },
-                   ]}
-        generic_template['value']['attachment']['payload']['elements'].append(element)
-    return generic_template
+                       }])
+    return template
 
 
 def process(action, parameters):
@@ -91,8 +75,9 @@ def process(action, parameters):
             restaurants.append(rest)
         # pprint(restaurants)
         template1 = get_template(restaurants)
+        # pprint(template1.get_message())
         output['action'] = action
-        output['output'] = template1
+        output['output'] = template1.get_message()
         output['success'] = True
     except:
         print "Network Error!"

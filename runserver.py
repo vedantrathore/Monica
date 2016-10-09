@@ -14,7 +14,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def about():
-    return 'A General bot to get find places to eat'
+    return 'A General bot to find places to eat'
 
 
 @app.route('/process/')
@@ -43,7 +43,9 @@ def webhook():
                     },
                     'message': modules.search(text)
                 }
-                # pprint(payload)
+                r = requests.post('https://graph.facebook.com/v2.8/me/messages',
+                                  params={'access_token': ACCESS_TOKEN},
+                                  json=payload)
             elif 'postback' in event:
                 postback = event['postback']['payload'].split('!')[0]
                 id = event['postback']['payload'].split('!')[1]
@@ -54,6 +56,10 @@ def webhook():
                         },
                         'message': modules.get_reviews(id)
                     }
+                    pprint(payload)
+                    r = requests.post('https://graph.facebook.com/v2.8/me/messages',
+                                      params={'access_token': ACCESS_TOKEN},
+                                      json=payload)
                 elif postback is "get_directions":
                     payload = {
                         'recipient': {
@@ -61,10 +67,11 @@ def webhook():
                         },
                         'message': modules.get_directions(id)
                     }
-            r = requests.post('https://graph.facebook.com/v2.8/me/messages',
+                    pprint(payload)
+                    r = requests.post('https://graph.facebook.com/v2.8/me/messages',
                                       params={'access_token': ACCESS_TOKEN},
                                       json=payload)
-        return ''  # 200 OK
+        return ''
     elif request.method == 'GET':  # Verification
         if request.args.get('hub.verify_token') == VERIFY_TOKEN:
             return request.args.get('hub.challenge')

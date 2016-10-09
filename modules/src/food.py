@@ -59,7 +59,7 @@ def process(action,parameters):
     if parameters['geo-city'] is None or parameters['number-integer'] is None:
         return output
     lat, lon = get_location(parameters['geo-city'])
-    url = 'https://developers.zomato.com/api/v2.1/search?'+'&lat=' + str(
+    url = 'https://developers.zomato.com/api/v2.1/search?count=10'+'&lat=' + str(
         lat) + '&lon=' + str(lon)
     if parameters['cuisines'] is not None:
         url += "&cuisines="+parameters['cuisines']

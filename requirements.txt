@@ -1,0 +1,4 @@
+apiai==1.0.2
+Flask==0.10.1
+geopy==1.11.0
+requests==2.9.1

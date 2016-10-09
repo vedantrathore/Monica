@@ -30,12 +30,12 @@ def get_template(restaurants):
                        {
                            "type": "postback",
                            "title": "Get Reviews",
-                           "payload": "get_reviews"
+                           "payload": "get_reviews!"+restaurant['id']
                        },
                        {
                            "type": "postback",
                            "title": "Get Directions",
-                           "payload": "get_directions"
+                           "payload": "get_directions!"+restaurant['id']
                        }])
     return template
 

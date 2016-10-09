@@ -43,9 +43,27 @@ def webhook():
                     },
                     'message': modules.search(text)
                 }
-                pprint(payload)
-                r = requests.post('https://graph.facebook.com/v2.8/me/messages', params={'access_token': ACCESS_TOKEN},
-                                  json=payload)
+                # pprint(payload)
+            elif 'postback' in event:
+                postback = event['postback']['payload'].split('!')[0]
+                id = event['postback']['payload'].split('!')[1]
+                if postback is "get_reviews":
+                    payload = {
+                        'recipient': {
+                            'id': sender
+                        },
+                        'message': modules.get_reviews(id)
+                    }
+                elif postback is "get_directions":
+                    payload = {
+                        'recipient': {
+                            'id': sender
+                        },
+                        'message': modules.get_directions(id)
+                    }
+            r = requests.post('https://graph.facebook.com/v2.8/me/messages',
+                                      params={'access_token': ACCESS_TOKEN},
+                                      json=payload)
         return ''  # 200 OK
     elif request.method == 'GET':  # Verification
         if request.args.get('hub.verify_token') == VERIFY_TOKEN:

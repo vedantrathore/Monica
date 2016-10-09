@@ -76,7 +76,7 @@ def get_reviews(id):
             template = GenericTemplate()
             for review in data["user_reviews"]:
                 review = review["review"]
-                template.add_element(title=review['rating_text']+' - '+review['rating']+'/5',subtitle=review['review_text'])
+                template.add_element(title=review['rating_text']+' - '+str(review['rating'])+'/5',subtitle=review['review_text'])
             pprint(template.get_message())
             return template.get_message()
     else:
@@ -92,7 +92,7 @@ def get_directions(id):
     if response.status_code == 200:
         data = response.json()
         lat = data['location']['latitude']
-        lon = data['location']['latitude']
+        lon = data['location']['longitude']
         location = 'http://www.google.com/maps/place/'+lat+','+lon
         pprint(TextTemplate('Here you go!'+'\n\n'+location).get_message())
         return TextTemplate('Here you go!'+'\n\n'+location).get_message()

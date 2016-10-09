@@ -73,12 +73,12 @@ def get_reviews(id):
         if count == 0:
             return TextTemplate('Sorry, no reviews are available').get_message()
         else:
-            template = GenericTemplate()
+            template_list=[]
             for review in data["user_reviews"]:
                 review = review["review"]
-                template.add_element(title=review['rating_text']+' - '+str(review['rating'])+'/5',subtitle=review['review_text'])
-            pprint(template.get_message())
-            return template.get_message()
+                temp = TextTemplate(text=review['rating_text']+' - '+str(review['rating'])+'/5'+'\n'+review['review_text']).get_message()
+                template_list.append(temp)
+            return template_list
     else:
         return TextTemplate('I\'m facing some issues, try again later').get_message()
 

@@ -82,5 +82,16 @@ def get_reviews(id):
         return TextTemplate('I\'m facing some issues, try again later').get_message()
 
 def get_directions(id):
-    print id
-    return
+    url='https://developers.zomato.com/api/v2.1/restaurant?res_id='+id
+    try:
+        response = requests.get(url, headers=headers)
+    except:
+            return TextTemplate('I\'m facing some issues, try again later').get_message()
+    if response.status_code == 200:
+        data = response.json()
+        lat = data['location']['latitude']
+        lon = data['location']['latitude']
+        location = 'http://www.google.com/maps/place/'+lat+','+lon
+        return TextTemplate('Here you go!'+'\n\n'+location).get_message()
+    else:
+        return TextTemplate('I\'m facing some issues, try again later').get_message()

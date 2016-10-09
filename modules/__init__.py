@@ -7,7 +7,7 @@ from src import *
 from templates.text import TextTemplate
 from templates.generic import GenericTemplate
 
-headers = {'Accept' : 'application/json', 'user_key': config['api_key'], 'User-Agent': 'curl/7.35.0'}
+headers = {'Accept' : 'application/json', 'user_key': 'ada7140b071d43fe7ac36c260b854174', 'User-Agent': 'curl/7.35.0'}
 
 API_AI_ACCESS_TOKEN = os.environ.get('API_AI_ACCESS_TOKEN', config.API_AI_ACCESS_TOKEN)
 r = apiai.ApiAI(API_AI_ACCESS_TOKEN)

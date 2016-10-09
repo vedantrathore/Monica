@@ -7,8 +7,8 @@ headers = {'Accept': 'application/json', 'user_key': 'ada7140b071d43fe7ac36c260b
 
 
 def get_location(location):
-    key="AhuYVYvwc666R0W_9dNUo9sTq1YjyzIzU4QdRD_7wB1qdb75BwoZj4Rg7tgpyLM9"
-    url="http://dev.virtualearth.net/REST/v1/Locations/"+location+"?inclnb=1&o=json&key="+key
+    key = "AhuYVYvwc666R0W_9dNUo9sTq1YjyzIzU4QdRD_7wB1qdb75BwoZj4Rg7tgpyLM9"
+    url = "http://dev.virtualearth.net/REST/v1/Locations/" + location + "?inclnb=1&o=json&key=" + key
     request = requests.get(url)
     # pprint(request.text)
     response = json.loads(request.text)
@@ -18,51 +18,53 @@ def get_location(location):
 
 def get_template(restaurants):
     generic_template = {
-        'template_type': 'generic',
-        'value': {
-            'attachment': {
-                'type': 'template',
-                'payload': {
-                    'template_type': 'generic',
-                    'elements': []
+        "attachment": {
+        "type": "template",
+        "payload": {
+            'template_type': 'generic',
+            'value': {
+                'attachment': {
+                    'type': 'template',
+                    'payload': {
+                        'template_type': 'generic',
+                        'elements': []
+                    }
                 }
             }
         }
-    }
+    }}
     for restaurant in restaurants:
-        element= {'title': restaurant['name'], 'item_url': restaurant['url'], 'image_url': restaurant['image_url'],
-                  'buttons': [
-                      {
-                          "type": "web_url",
-                          "url": restaurant['url'],
-                          "title": "Visit Website"
-                      },
-                      {
-                          "type": "postback",
-                          "title": "Get Reviews",
-                          "payload": "get_reviews"
-                      },
-                      {
-                          "type": "postback",
-                          "title": "Get Directions",
-                          "payload": "get_directions"
-                      },
-                  ]}
+        element = {'title': restaurant['name'], 'item_url': restaurant['url'], 'image_url': restaurant['image_url'],
+                   'buttons': [
+                       {
+                           "type": "web_url",
+                           "url": restaurant['url'],
+                           "title": "Visit Website"
+                       },
+                       {
+                           "type": "postback",
+                           "title": "Get Reviews",
+                           "payload": "get_reviews"
+                       },
+                       {
+                           "type": "postback",
+                           "title": "Get Directions",
+                           "payload": "get_directions"
+                       },
+                   ]}
         generic_template['value']['attachment']['payload']['elements'].append(element)
     return generic_template
 
 
-
-
-def process(action,parameters):
-    output={}
+def process(action, parameters):
+    output = {}
     if parameters['geo-city'] is None or parameters['number-integer'] is None:
         return output
     lat, lon = get_location(parameters['geo-city'])
-    url = 'https://developers.zomato.com/api/v2.1/search?count=10'+'&lat=' + str(
+    url = 'https://developers.zomato.com/api/v2.1/search?count=10' + '&lat=' + str(
         lat) + '&lon=' + str(lon)
     if parameters['cuisines'] is not None:
-        url += "&cuisines="+parameters['cuisines']
+        url += "&cuisines=" + parameters['cuisines']
     try:
         r = requests.get(url, headers=headers)
         restaurants = []
@@ -99,9 +101,10 @@ def process(action,parameters):
         error_message += '\n  - Some restaurants in guwahati under 1000 Rs'
         error_message += '\n  - Any place to eat in Mumbai'
         error_message += '\n  - I\'m Hungry'
-        output['error_msg']=TextTemplate(error_message).get_message()
-        output['success']=False
+        output['error_msg'] = TextTemplate(error_message).get_message()
+        output['success'] = False
     return output
+
 
 if __name__ == '__main__':
     pass

@@ -77,6 +77,7 @@ def get_reviews(id):
             for review in data["user_reviews"]:
                 review = review["review"]
                 template.add_element(title=review['rating_text']+' - '+review['rating']+'/5',subtitle=review['review_text'])
+            pprint(template.get_message())
             return template.get_message()
     else:
         return TextTemplate('I\'m facing some issues, try again later').get_message()
@@ -92,6 +93,7 @@ def get_directions(id):
         lat = data['location']['latitude']
         lon = data['location']['latitude']
         location = 'http://www.google.com/maps/place/'+lat+','+lon
+        pprint(TextTemplate('Here you go!'+'\n\n'+location).get_message())
         return TextTemplate('Here you go!'+'\n\n'+location).get_message()
     else:
         return TextTemplate('I\'m facing some issues, try again later').get_message()

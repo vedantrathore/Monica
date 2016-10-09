@@ -31,6 +31,7 @@ def search():
 def webhook():
     if request.method == 'POST':
         data = request.get_json(force=True)
+        pprint(data)
         messaging_events = data['entry'][0]['messaging']
         for event in messaging_events:
             sender = event['sender']['id']

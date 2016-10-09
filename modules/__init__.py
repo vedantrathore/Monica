@@ -74,10 +74,13 @@ def get_reviews(id):
             return TextTemplate('Sorry, no reviews are available').get_message()
         else:
             template_list=[]
+            i=0
             for review in data["user_reviews"]:
                 review = review["review"]
                 temp = TextTemplate(text=review['rating_text']+' - '+str(review['rating'])+'/5'+'\n'+review['review_text']).get_message()
-                template_list.append(temp)
+                template_list.insert(i,temp)
+                i+=1
+            pprint(template_list)
             return template_list
     else:
         return TextTemplate('I\'m facing some issues, try again later').get_message()

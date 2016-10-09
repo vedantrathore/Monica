@@ -4,6 +4,7 @@ import json
 import os
 import requests
 import modules
+from pprint import pprint
 
 ACCESS_TOKEN = os.environ.get('ACCESS_TOKEN', config.ACCESS_TOKEN)
 VERIFY_TOKEN = os.environ.get('VERIFY_TOKEN', config.VERIFY_TOKEN)
@@ -41,7 +42,8 @@ def webhook():
                     },
                     'message': modules.search(text)
                 }
-                r = requests.post('https://graph.facebook.com/v2.6/me/messages', params={'access_token': ACCESS_TOKEN},
+                pprint(payload)
+                r = requests.post('https://graph.facebook.com/v2.8/me/messages', params={'access_token': ACCESS_TOKEN},
                                   json=payload)
         return ''  # 200 OK
     elif request.method == 'GET':  # Verification
@@ -52,4 +54,4 @@ def webhook():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)), debug=True)
+    app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 8000)), debug=True)

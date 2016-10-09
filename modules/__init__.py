@@ -34,7 +34,7 @@ def search(input):
     action,parameters = process_query(input)
     if action in src.__all__:
         data = sys.modules['modules.src.' + action].process(action,parameters)
-        if data['success']:
+        if data['success'] == True:
             return data['output']
         else:
             if 'error_msg' in data:

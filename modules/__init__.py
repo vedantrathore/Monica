@@ -37,25 +37,27 @@ def process_query(input):
         # return None, {}
 
 def search(input):
-    action, parameters = process_query(input)
-    if action in src.__all__:
-        data = sys.modules['modules.src.' + action].process(action,parameters)
-        if data['success']:
-            return data['output']
-        else:
-            if 'error_msg' in data:
-                return data['error_msg']
+    try:
+        action, parameters = process_query(input)
+        if action in src.__all__:
+            data = sys.modules['modules.src.' + action].process(action, parameters)
+            if data['success']:
+                return data['output']
             else:
-                return TextTemplate('Something didn\'t work as expected! I\'ll report this to my authority.').get_message()
-    elif action is not None:
-        # print parameters
-        return TextTemplate(str(parameters)).get_message()
-    elif action is 'none' and parameters is not None:
-        # print TextTemplate(str(parameters)).get_message()
-        return TextTemplate(str(parameters)).get_message()
-    else:
-        return TextTemplate('I\'m sorry; I\'m not sure I understand what you\'re trying to say .\nTry typing "help" or "request"').get_message()
-
+                if 'error_msg' in data:
+                    return data['error_msg']
+                else:
+                    return TextTemplate('Something didn\'t work as expected! I\'ll report this to my authority.').get_message()
+        elif action is not None:
+            # print parameters
+            return TextTemplate(str(parameters)).get_message()
+        elif action is 'none' and parameters is not None:
+            # print TextTemplate(str(parameters)).get_message()
+            return TextTemplate(str(parameters)).get_message()
+        else:
+            return TextTemplate('I\'m sorry, I\'m not sure I understand what you\'re trying to say').get_message()
+    except Exception as E:
+        return TextTemplate('I\'m sorry, I\'m not sure I understand what you\'re trying to say').get_message()
 
 def get_reviews(id):
     url = "https://developers.zomato.com/api/v2.1/reviews?res_id=%s&count=5" % (id)

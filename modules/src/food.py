@@ -1,8 +1,8 @@
+from pprint import pprint
+import sys,os
 import requests, json
 from templates.button import *
 from templates.generic import *
-from pprint import pprint
-from geopy.geocoders import Nominatim
 
 headers = {'Accept': 'application/json', 'user_key': 'ada7140b071d43fe7ac36c260b854174', 'User-Agent': 'curl/7.35.0'}
 
@@ -20,7 +20,7 @@ def get_location(location):
 def get_template(restaurants):
     template = GenericTemplate()
     for restaurant in restaurants:
-        template.add_element(title=restaurant['name'],item_url=restaurant['url'],
+        template.add_element(title=restaurant['name']+'  Rating : '+str(restaurant['rating'])+'/5', subtitle='Cost for 2 : '+str(restaurant['budget'])+'\nLocality: '+restaurant['locality'],item_url=restaurant['url'],
                              image_url=restaurant['image_url'],buttons=[
                         {
                            "type": "web_url",
@@ -37,6 +37,7 @@ def get_template(restaurants):
                            "title": "Get Directions",
                            "payload": "get_directions!"+restaurant['id']
                        }])
+    pprint(template)
     return template
 
 
@@ -45,7 +46,7 @@ def process(action, parameters):
     if parameters['geo-city'] is None or parameters['number-integer'] is None:
         return output
     lat, lon = get_location(parameters['geo-city'])
-    url = 'https://developers.zomato.com/api/v2.1/search?count=10' + '&lat=' + str(
+    url = 'https://developers.zomato.com/api/v2.1/search?count=10&sort=rating&order=desc' + '&lat=' + str(
         lat) + '&lon=' + str(lon)
     if parameters['cuisines'] is not None:
         url += "&cuisines=" + parameters['cuisines']
@@ -59,19 +60,12 @@ def process(action, parameters):
             print "Api Issues"
             return
         for res in r.json()['restaurants']:
-            rest = {}
-            rest['budget'] = res['restaurant']['currency'] + ' ' + str(
-                float(res['restaurant']['average_cost_for_two']) / 2)
-            # if rest['budget'] > parameters['number-integer']:
-            #     continue
-            rest['id'] = res['restaurant']['id']
-            rest['name'] = res['restaurant']['name']
-            rest['url'] = res['restaurant']['url']
-            rest['location_lat'] = res['restaurant']['location']['latitude']
-            rest['location_lon'] = res['restaurant']['location']['longitude']
-            rest['rating'] = res['restaurant']['user_rating']['aggregate_rating']
-            rest['locality'] = res['restaurant']['location']['locality']
-            rest['image_url'] = res['restaurant']['thumb']
+            rest = {'budget': res['restaurant']['currency'] + ' ' + str(res['restaurant']['average_cost_for_two']),
+                    'id': res['restaurant']['id'], 'name': res['restaurant']['name'], 'url': res['restaurant']['url'],
+                    'location_lat': res['restaurant']['location']['latitude'],
+                    'location_lon': res['restaurant']['location']['longitude'],
+                    'rating': res['restaurant']['user_rating']['aggregate_rating'],
+                    'locality': res['restaurant']['location']['locality'], 'image_url': res['restaurant']['thumb']}
             restaurants.append(rest)
         # pprint(restaurants)
         template1 = get_template(restaurants)
@@ -79,8 +73,11 @@ def process(action, parameters):
         output['action'] = action
         output['output'] = template1.get_message()
         output['success'] = True
-    except:
-        print "Network Error!"
+    except Exception as E:
+        print E
+        exc_type,exc_obj,exc_tb=sys.exc_info()
+        fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+        print exc_type,fname,exc_tb.tb_lineno
         error_message = 'I couldn\'t find any Restaurant matching your query.'
         error_message += '\nPlease ask me something else, like:'
         error_message += '\n  - Some restaurants in guwahati under 1000 Rs'

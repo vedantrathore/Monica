@@ -1,5 +1,5 @@
 import config
-from flask import Flask, request
+from flask import render_template,Flask, request
 import json
 import os
 import requests
@@ -14,7 +14,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def about():
-    return 'A General bot to find places to eat'
+    return render_template('index.html')
 
 
 @app.route('/process/')

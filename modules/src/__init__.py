@@ -3,4 +3,5 @@ __all__ = [
     'joke',
     'quote',
     'fact',
+    'help',
 ]

@@ -20,7 +20,7 @@ def get_location(location):
 def get_template(restaurants):
     template = GenericTemplate()
     for restaurant in restaurants:
-        template.add_element(title=restaurant['name']+'| Rating : '+str(restaurant['rating'])+'/5', subtitle='Cost for 2 : '+str(restaurant['budget'])+' |  Locality: '+restaurant['locality'],item_url=restaurant['url'],
+        template.add_element(title=restaurant['name']+' | Rating : '+str(restaurant['rating'])+'/5', subtitle='Cost for 2 : '+str(restaurant['budget'])+' |  Locality: '+restaurant['locality'],item_url=restaurant['url'],
                              image_url=restaurant['image_url'],buttons=[
                         {
                            "type": "web_url",

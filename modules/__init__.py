@@ -19,7 +19,7 @@ def process_query(input):
         request.query = input
         response = json.loads(request.getresponse().read())
         result = response['result']
-        # pprint(result)
+        pprint(result)
         action = result['action']
         parameters = result['parameters']
         if 'actionIncomplete' in result:

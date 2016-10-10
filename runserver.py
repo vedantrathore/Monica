@@ -43,7 +43,7 @@ def webhook():
                     },
                     'message': modules.search(text)
                 }
-                pprint(payload)
+                # pprint(payload)
                 r = requests.post('https://graph.facebook.com/v2.8/me/messages',
                                   params={'access_token': ACCESS_TOKEN},
                                   json=payload)
@@ -59,7 +59,7 @@ def webhook():
                             },
                             'message': review
                         }
-                        pprint(payload)
+                        # pprint(payload)
                         r = requests.post('https://graph.facebook.com/v2.8/me/messages',
                                           params={'access_token': ACCESS_TOKEN},
                                           json=payload)
@@ -70,7 +70,7 @@ def webhook():
                         },
                         'message': modules.get_directions(id)
                     }
-                    pprint(payload)
+                    # pprint(payload)
                     r = requests.post('https://graph.facebook.com/v2.8/me/messages',
                                       params={'access_token': ACCESS_TOKEN},
                                       json=payload)

@@ -74,6 +74,17 @@ def webhook():
                     r = requests.post('https://graph.facebook.com/v2.8/me/messages',
                                       params={'access_token': ACCESS_TOKEN},
                                       json=payload)
+                elif postback == "more":
+                    payload = {
+                        'recipient': {
+                            'id': sender
+                        },
+                        'message': modules.search(id)
+                    }
+                    # pprint(payload)
+                    r = requests.post('https://graph.facebook.com/v2.8/me/messages',
+                                      params={'access_token': ACCESS_TOKEN},
+                                      json=payload)
         return ''
     elif request.method == 'GET':  # Verification
         if request.args.get('hub.verify_token') == VERIFY_TOKEN:

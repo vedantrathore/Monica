@@ -42,6 +42,7 @@ def search(input):
         if action in src.__all__:
             data = sys.modules['modules.src.' + action].process(action, parameters)
             if data['success']:
+                pprint(data['output'])
                 return data['output']
             else:
                 if 'error_msg' in data:

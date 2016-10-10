@@ -8,12 +8,12 @@ import config,json
 def process(action,parameter):
     output ={}
     try:
-        with open(config.JOKES_SOURCE_FILE) as jokes_file:
-            jokes = json.load(jokes_file)
-            jokes_list = jokes['jokes']
-        joke = choice(jokes_list)
-        template = ButtonTemplate(text=joke)
-        template.add_postback(title='One more!',payload='more!joke')
+        with open(config.QUOTES_SOURCE_FILE) as quotes_file:
+            quotes = json.load(quotes_file)
+            quotes_list = quotes['quotes']
+        quote = choice(quotes_list)
+        template = ButtonTemplate(text=quote)
+        template.add_postback(title='One more!',payload='more!quote')
         output['action'] = action
         output['success'] = True
         output['output'] = template.get_message()
@@ -22,14 +22,14 @@ def process(action,parameter):
         exc_type, exc_obj, exc_tb = sys.exc_info()
         fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
         print exc_type, fname, exc_tb.tb_lineno
-        error_message = 'I couldn\'t find any Joke '
+        error_message = 'I couldn\'t find any Quote '
         error_message += '\nPlease ask me something else, like:'
-        error_message += '\n  - Tell me a Joke'
-        error_message += '\n  - I\'m bored'
-        error_message += '\n  - You are boring'
+        error_message += '\n  - Tell me a Quote'
+        error_message += '\n  - I\'m demotivated'
+        error_message += '\n  - I want a quote'
         output['error_msg'] = TextTemplate(error_message).get_message()
         output['success'] = False
     return output
 
 if __name__ == '__main__':
-    print process('joke','parameter')
+    print process('quote','parameter')

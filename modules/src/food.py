@@ -6,6 +6,10 @@ from templates.generic import *
 
 headers = {'Accept': 'application/json', 'user_key': 'ada7140b071d43fe7ac36c260b854174', 'User-Agent': 'curl/7.35.0'}
 
+# helper functions
+# get_location(locaiton): returns the latitude and longitude based on user location as a string
+# get_template(restaurants) : returns the template for messenger from list of restaurants
+# process(action,parameter) : main function, returns teh output using zomato api
 
 def get_location(location):
     key = "AhuYVYvwc666R0W_9dNUo9sTq1YjyzIzU4QdRD_7wB1qdb75BwoZj4Rg7tgpyLM9"

@@ -1,10 +1,10 @@
 from templates.text import TextTemplate
 import sys, os
 
-
+# Sending help query subroutine
 def process(action, parameter):
     output = {}
-    help_message = 'Hello I\'m Monica Geller Bing, I am here to help you find great restaurants with the help of my skills :)'
+    help_message = "Hello I'm Monica Geller Bing, I am here to help you find great restaurants with the help of my skills :)"
     help_message += "\nYou can also talk to me about other stuff ;)"
     help_message += "\nSearch queries like"
     help_message += "\n  - Search for hotels in Banglore"

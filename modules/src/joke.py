@@ -8,15 +8,18 @@ import config,json
 def process(action,parameter):
     output ={}
     try:
+        # picks a random joke from a list of jokes and send it
         with open(config.JOKES_SOURCE_FILE) as jokes_file:
             jokes = json.load(jokes_file)
             jokes_list = jokes['jokes']
         joke = choice(jokes_list)
-        template = ButtonTemplate(text=joke)
+        template = ButtonTemplate(text=joke) # a text template for facebook messenger
         template.add_postback(title='One more!',payload='more!joke')
+        #adding payload
         output['action'] = action
         output['success'] = True
         output['output'] = template.get_message()
+    # for exiting gracefully
     except Exception as E:
         print E
         exc_type, exc_obj, exc_tb = sys.exc_info()

@@ -13,7 +13,6 @@ def process(action, parameter):
     help_message += "\n  - Tell me a joke"
     help_message += "\n  - I want a famous quote"
     help_message += "\n  - Some facts?"
-    help_message += "\n  - I'm bored"
     try:
         template = TextTemplate(help_message)
         output['action'] = action

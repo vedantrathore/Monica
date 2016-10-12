@@ -5,13 +5,11 @@ import sys, os
 def process(action, parameter):
     output = {}
     help_message = "Hello I'm Monica Geller Bing, I am here to help you find great restaurants with the help of my skills :)"
-    help_message += "\nYou can also talk to me about other stuff ;)"
     help_message += "\nSearch queries like"
     help_message += "\n  - Search for hotels in Banglore"
     help_message += "\n  - I wanna eat some chinese food"
     help_message += "\n  - I'm hungry"
     help_message += "\n  - Show me something to eat under 1000 Rs"
-    help_message += "\nI can also entertain you, ask me"
     help_message += "\n  - Tell me a joke"
     help_message += "\n  - I want a famous quote"
     help_message += "\n  - Some facts?"

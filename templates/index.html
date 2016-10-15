@@ -53,14 +53,6 @@
   </style>
 </head>
 <body>
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.8&appId=592673880939817";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
 <nav class="navbar navbar-default">
     <div class="container">
         <div class="navbar-header">
@@ -102,36 +94,21 @@
         height="500"
         src="https://console.api.ai/api-client/demo/embedded/39522be5-579d-48a8-8d56-24799456ab3a">
         </iframe>
+        <p><br>Only text feature is supported in Api.ai chat window, for complete features try messaging on facebook</p>
     </div>
     <div class="col-sm-6">
-      <p>Or we can chat on Facebook!</p>
-        <script>
-      window.fbAsyncInit = function() {
-        FB.init({
-          appId      : '95100348886',
-          xfbml      : true,
-          version    : 'v2.6'
-        });
-      };
 
-      (function(d, s, id){
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) {return;}
-        js = d.createElement(s); js.id = id;
-        js.src = "//connect.facebook.net/en_US/sdk.js";
-        fjs.parentNode.insertBefore(js, fjs);
-      }(document, 'script', 'facebook-jssdk'));
-    </script>
-
-    <div class="fb-page"
-         data-href="https://www.facebook.com/Bot-Monica-158214041302319/"
-         data-tabs="messages"
-         data-width="350"
-         data-height="500"
-         data-small-header="true">
-      <div class="fb-xfbml-parse-ignore">
-        <blockquote></blockquote>
-      </div>
+      <p>Or we can chat on Facebook!
+        </p>
+        <div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.8&appId=592673880939817";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+        <div class="fb-page" data-href="https://www.facebook.com/Bot-Monica-158214041302319/" data-tabs="timeline" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/Bot-Monica-158214041302319/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/Bot-Monica-158214041302319/">Bot Monica</a></blockquote></div>
     </div>
     </div>
   </div>

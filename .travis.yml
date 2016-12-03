@@ -2,4 +2,4 @@ language: python
 install:
   - pip install -r requirements.txt
 script:
-  runserver
+  python runserver.py

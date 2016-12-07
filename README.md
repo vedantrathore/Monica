@@ -1,5 +1,5 @@
 # Monica
-
+[![Gitter Chat](http://img.shields.io/badge/chat-online-brightgreen.svg)](https://gitter.im/monicabot/Lobby)
 ## About
 
 Monica is a facebook messenger bot which uses Natural language processing and machine learning intelligence to search restaurants based on user inputs like location and cuisine with the of Zomato Api.

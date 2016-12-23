@@ -35,3 +35,5 @@ $ pip install -r requirements.txt \\Install all the dependencies
 $ python runserver.py \\Start the server
 ```
 goto ```http://127.0.0.1:5000/search/?q=<<Your query>>/``` to see the results of your query
+
+Star the repo if you like it :smile:
